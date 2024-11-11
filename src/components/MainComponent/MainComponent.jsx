@@ -21,7 +21,7 @@ const MainComponent = () => {
         if (city === '') return;
         try {
             const response = await axios.get(
-                `http://api.weatherapi.com/v1/search.json?key=1e1e9e8caeae4074a9d51316242110&q=${city}`
+                `https://api.weatherapi.com/v1/search.json?key=1e1e9e8caeae4074a9d51316242110&q=${city}`
             );
             setSuggestions(response.data);
         } catch (error) {
@@ -34,7 +34,7 @@ const MainComponent = () => {
         if (query === '') return;
         try {
             const response = await axios.get(
-                `http://api.weatherapi.com/v1/forecast.json?key=1e1e9e8caeae4074a9d51316242110&q=${query}&days=3&aqi=no&alerts=no`
+                `https://api.weatherapi.com/v1/forecast.json?key=1e1e9e8caeae4074a9d51316242110&q=${query}&days=3&aqi=no&alerts=no`
             );
             setWeatherData(response.data);
             console.log(response.data);
