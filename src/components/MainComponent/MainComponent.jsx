@@ -30,7 +30,6 @@ const MainComponent = () => {
     };
 
     const fetchWeatherData = async () => {
-        // `http://api.weatherapi.com/v1/current.json?key=1e1e9e8caeae4074a9d51316242110&q=${query}`
         if (query === '') return;
         try {
             const response = await axios.get(
@@ -53,20 +52,35 @@ const MainComponent = () => {
         document.getElementById('cityInput').value = '';
         setCity('');
         setSuggestions([]);
-        setQuery(`${latitude},${longitude}`);
+        setQuery(currentLocation);
     };
 
     const currentLocation = useMemo(() => {
-        let coords = '';
-        navigator.geolocation.getCurrentPosition((position) => {
-            coords = `${position.coords.latitude},${position.coords.longitude}`;
-            setLatitude(position.coords.latitude);
-            setLongitude(position.coords.longitude);
-            setQuery(coords);
-        });
-        return coords;
-    }, [latitude, longitude]);
+        const storedCoords = localStorage.getItem('coords');
+        if (storedCoords) {
+            return storedCoords; 
+        }
 
+        let coords = '';
+        const geoWatcher = navigator.geolocation.watchPosition(
+            (position) => {
+                const newCoords = `${position.coords.latitude},${position.coords.longitude}`;
+                if (coords !== newCoords) {
+                    setLatitude(position.coords.latitude);
+                    setLongitude(position.coords.longitude);
+                    setQuery(newCoords); 
+                    localStorage.setItem('coords', newCoords); 
+                    coords = newCoords; 
+                }
+            },
+            (error) => {
+                console.error('Error fetching location:', error);
+            },
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        );
+
+        return coords;
+    }, [latitude, longitude]); 
 
     useEffect(() => {
         fetchSuggestionData();
