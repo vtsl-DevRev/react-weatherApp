@@ -1,0 +1,30 @@
+#titlecomponent {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #1e90ff, #00bfff);
+    color: white;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#titlecomponent h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    #titlecomponent h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #titlecomponent {
+        padding: 1.5rem 1rem;
+    }
+    
+    #titlecomponent h1 {
+        font-size: 1.75rem;
+    }
+}

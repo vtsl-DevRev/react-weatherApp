@@ -1,0 +1,40 @@
+#hourlyForecastDetails {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px;
+    scroll-behavior: smooth;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.hour {
+    flex: 0 0 12%; /* Adjusts to show 8 items (12% each) */
+    background-color: #f7faff;
+    border: 1px solid #cce7ff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    transition: transform 0.2s;
+}
+
+.hour:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#hourlyForecastDetails::-webkit-scrollbar {
+    height: 8px;
+}
+
+#hourlyForecastDetails::-webkit-scrollbar-thumb {
+    background-color: #cce7ff;
+    border-radius: 10px;
+}

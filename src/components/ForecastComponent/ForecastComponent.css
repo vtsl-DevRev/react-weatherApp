@@ -1,0 +1,39 @@
+#forecastDetails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-evenly;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto; /* Center the container */
+}
+
+.forecastDay {
+    background-color: #e6f7ff; /* Light blue background */
+    border: 1px solid #b3d9ff; /* Light border */
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px; /* Adjust the width as needed */
+    flex: 1 1 250px; /* Flexible width with minimum size */
+    margin-bottom: 20px;
+}
+
+.forecastDay h3 {
+    font-size: 16px;
+    color: #333;
+    margin: 8px 0;
+}
+
+.forecastDay img {
+    width: 80px;
+    height: auto;
+    margin: 10px 0;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
