@@ -8,7 +8,7 @@ import HourComponent from '../HourComponent/HourComponent';
 const MainComponent = () => {
     const [city, setCity] = useState('');
     const [suggestions, setSuggestions] = useState([]);
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState(currentLocation);
     const [weatherData, setWeatherData] = useState({});
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
