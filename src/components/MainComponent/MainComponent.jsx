@@ -6,12 +6,42 @@ import ForecastComponent from '../ForecastComponent/ForecastComponent';
 import HourComponent from '../HourComponent/HourComponent';
 
 const MainComponent = () => {
+
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    
+    const currentLocation = useMemo(() => {
+        const storedCoords = localStorage.getItem('coords');
+        if (storedCoords) {
+            return storedCoords; 
+        }
+
+        let coords = '';
+        const geoWatcher = navigator.geolocation.watchPosition(
+            (position) => {
+                const newCoords = `${position.coords.latitude},${position.coords.longitude}`;
+                if (coords !== newCoords) {
+                    setLatitude(position.coords.latitude);
+                    setLongitude(position.coords.longitude);
+                    setQuery(newCoords); 
+                    localStorage.setItem('coords', newCoords); 
+                    coords = newCoords; 
+                }
+            },
+            (error) => {
+                console.error('Error fetching location:', error);
+            },
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        );
+
+        return coords;
+    }, [latitude, longitude]);
+
     const [city, setCity] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [query, setQuery] = useState(currentLocation);
     const [weatherData, setWeatherData] = useState({});
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
+    
 
     const cityHandler = (event) => {
         setCity(event.target.value);
@@ -46,7 +76,7 @@ const MainComponent = () => {
         setCity(event.target.innerHTML);
         setQuery(`id:${event.target.id}`);
         setSuggestions([]);
-    };
+    }; 
 
     const clearClick = () => {
         document.getElementById('cityInput').value = '';
@@ -54,33 +84,6 @@ const MainComponent = () => {
         setSuggestions([]);
         setQuery(currentLocation);
     };
-
-    const currentLocation = useMemo(() => {
-        const storedCoords = localStorage.getItem('coords');
-        if (storedCoords) {
-            return storedCoords; 
-        }
-
-        let coords = '';
-        const geoWatcher = navigator.geolocation.watchPosition(
-            (position) => {
-                const newCoords = `${position.coords.latitude},${position.coords.longitude}`;
-                if (coords !== newCoords) {
-                    setLatitude(position.coords.latitude);
-                    setLongitude(position.coords.longitude);
-                    setQuery(newCoords); 
-                    localStorage.setItem('coords', newCoords); 
-                    coords = newCoords; 
-                }
-            },
-            (error) => {
-                console.error('Error fetching location:', error);
-            },
-            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-        );
-
-        return coords;
-    }, [latitude, longitude]); 
 
     useEffect(() => {
         fetchSuggestionData();
